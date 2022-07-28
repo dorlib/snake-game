@@ -16,7 +16,7 @@ type keyboardEvent struct {
 	key       termbox.Key
 }
 
-func keyToDirection(key termbox.Key) direction {
+func KeyToDirection(key termbox.Key) direction {
 	switch key {
 	case termbox.KeyArrowLeft:
 		return LEFT
