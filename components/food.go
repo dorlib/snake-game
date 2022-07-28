@@ -6,19 +6,19 @@ import (
 	"strings"
 )
 
-type food struct {
-	emoji rune
+type Food struct {
+	Emoji rune
 	x     int
 	y     int
-	score int
+	Score int
 }
 
-func newFood(x int, y int) *food {
-	return &food{
-		emoji: getFoodEmoji(),
+func NewFood(x int, y int) *Food {
+	return &Food{
+		Emoji: getFoodEmoji(),
 		x:     x,
 		y:     y,
-		score: 10,
+		Score: 10,
 	}
 }
 
