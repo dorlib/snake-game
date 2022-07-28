@@ -1,6 +1,6 @@
 package components
 
-type cordinate struct {
-	x int
-	y int
+type Cordinate struct {
+	X int
+	Y int
 }

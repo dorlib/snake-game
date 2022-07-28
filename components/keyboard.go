@@ -16,7 +16,7 @@ type keyboardEvent struct {
 	key       termbox.Key
 }
 
-func KeyToDirection(key termbox.Key) direction {
+func KeyToDirection(key termbox.Key) Direction {
 	switch key {
 	case termbox.KeyArrowLeft:
 		return LEFT
@@ -49,7 +49,7 @@ func listenToKeyboard(evnChan chan keyboardEvent) {
 			case termbox.KeyEsc:
 				evnChan <- keyboardEvent{eventType: END, key: ev.Key}
 			default:
-				if ev.Ch == "r" {
+				if string(ev.Ch) == "r" {
 					evnChan <- keyboardEvent{eventType: RETRY, key: ev.Key}
 				}
 			}

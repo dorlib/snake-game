@@ -15,28 +15,28 @@ func testKeyToDirectionDefault(t *testing.T) {
 
 func testKeyToDirectionRight(t *testing.T) {
 	d := components.KeyToDirection(termbox.KeyArrowRight)
-	if d != RIGHT {
+	if d != components.RIGHT {
 		t.Fatalf("expected direction to be RIGHT but got %v", d)
 	}
 }
 
 func testKeyToDirectionLeft(t *testing.T) {
 	d := components.KeyToDirection(termbox.KeyArrowLeft)
-	if d != LEFT {
+	if d != components.LEFT {
 		t.Fatalf("expected direction to be LEFT but got %v", d)
 	}
 }
 
 func testKeyToDirectionUp(t *testing.T) {
 	d := components.KeyToDirection(termbox.KeyArrowUp)
-	if d != UP {
+	if d != components.UP {
 		t.Fatalf("expected direction to be UP but got %v", d)
 	}
 }
 
 func testKeyToDirectionDwn(t *testing.T) {
 	d := components.KeyToDirection(termbox.KeyArrowDown)
-	if d != DOWN {
+	if d != components.DOWN {
 		t.Fatalf("expected direction to be DOWN but got %v", d)
 	}
 }

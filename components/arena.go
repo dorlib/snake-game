@@ -5,73 +5,73 @@ import (
 	"time"
 )
 
-type arena struct {
-	food       *Food
-	snake      *snake
-	hasFood    func(*arena, coord) bool
-	height     int
-	width      int
-	pointsChan chan int
+type Arena struct {
+	Food      *Food
+	Snake     *Snake
+	HasFood   func(*Arena, Cordinate) bool
+	height    int
+	width     int
+	scoreChan chan int
 }
 
-func newArena(s *snake, p chan int, h int, w int) *arena {
+func NewArena(s *Snake, p chan int, h int, w int) *Arena {
 	rand.Seed(time.Now().UnixNano())
 
-	a := &arena{
-		snake:      s,
-		height:     h,
-		width:      w,
-		pointsChan: p,
-		hasFood:    hasFood,
+	a := &Arena{
+		Snake:     s,
+		height:    h,
+		width:     w,
+		scoreChan: p,
+		HasFood:   HasFood,
 	}
 
 	a.placeFood()
 	return a
 }
 
-func (a *arena) placeFood() {
+func (a *Arena) placeFood() {
 	var x, y int
 
 	for {
 		x = rand.Intn(a.width)
 		y = rand.Intn(a.height)
 
-		if !a.isOccupied(cordinate{x: x, y: y}) {
+		if !a.isOccupied(Cordinate{X: x, Y: y}) {
 			break
 		}
 	}
 }
 
-func (a *arena) isOccupied(cord cordinate) bool {
-	return a.snake.isOnPosition(cord)
+func (a *Arena) isOccupied(cord Cordinate) bool {
+	return a.Snake.isOnPosition(cord)
 }
 
-func (a *arena) snakeOutOfArea() bool {
-	h := a.snake.head()
-	return h.x > a.width || h.y > a.height || h.x < 0 || h.y < 0
+func (a *Arena) snakeOutOfArea() bool {
+	h := a.Snake.Head()
+	return h.X > a.width || h.Y > a.height || h.X < 0 || h.Y < 0
 }
 
-func (a *arena) addScore(p int) {
-	a.pointsChan <- p
+func (a *Arena) addScore(p int) {
+	a.scoreChan <- p
 }
 
-func (a *arena) moveSnake() err {
-	if err := a.snake.move(); err != nil {
+func (a *Arena) MoveSnake() err {
+	if err := a.Snake.Move(); err != nil {
 		return err
 	}
 
 	if a.snakeOutOfArea() {
-		return a.snake.die()
+		return a.Snake.Die()
 	}
 
-	if a.hasFood(a, a.snake.head()) {
-		go a.addScore(a.food.Score)
-		a.snake.length++
+	if a.HasFood(a, a.Snake.Head()) {
+		go a.addScore(a.Food.Score)
+		a.Snake.Length++
 		a.placeFood()
 	}
 	return nil
 }
 
-func hasFood(a *arena, cord cordinate) bool {
-	return cord.x == a.food.x && cord.y == a.food.y
+func HasFood(a *Arena, cord Cordinate) bool {
+	return cord.X == a.Food.X && cord.Y == a.Food.Y
 }

@@ -3,30 +3,30 @@ package components
 import "errors"
 
 const (
-	RIGHT direction = 1 + iota
+	RIGHT Direction = 1 + iota
 	LEFT
 	UP
 	DOWN
 )
 
-type direction int
+type Direction int
 
-type snake struct {
-	body      []cordinate
-	direction direction
-	length    int
+type Snake struct {
+	Body      []Cordinate
+	Direction Direction
+	Length    int
 }
 
-func newSnake(d direction, b []cordinate) *snake {
-	return &snake{
-		body:      b,
-		direction: d,
-		length:    len(b),
+func NewSnake(d Direction, b []Cordinate) *Snake {
+	return &Snake{
+		Body:      b,
+		Direction: d,
+		Length:    len(b),
 	}
 }
 
-func (s *snake) changeDirection(d direction) {
-	opposites := map[direction]direction{
+func (s *Snake) ChangeDirection(d Direction) {
+	opposites := map[Direction]Direction{
 		RIGHT: LEFT,
 		LEFT:  RIGHT,
 		UP:    DOWN,
@@ -35,49 +35,49 @@ func (s *snake) changeDirection(d direction) {
 
 	opp := opposites[d]
 
-	if opp != 0 && opp != s.direction {
-		s.direction = d
+	if opp != 0 && opp != s.Direction {
+		s.Direction = d
 	}
 }
 
-func (s *snake) head() cordinate {
-	return s.body[len(s.body)-1]
+func (s *Snake) Head() Cordinate {
+	return s.Body[len(s.Body)-1]
 }
 
-func (s *snake) die() error {
+func (s *Snake) Die() error {
 	return errors.New("game over")
 }
 
-func (s *snake) move() err {
-	head := s.head()
-	cord := cordinate{x: head.x, y: head.y}
+func (s *Snake) Move() err {
+	head := s.Head()
+	cord := Cordinate{X: head.X, Y: head.Y}
 
-	switch s.direction {
+	switch s.Direction {
 	case RIGHT:
-		cord.x++
+		cord.X++
 	case LEFT:
-		cord.x--
+		cord.X--
 	case UP:
-		cord.y++
+		cord.Y++
 	case DOWN:
-		cord.y--
+		cord.Y--
 	}
 
 	if s.isOnPosition(cord) {
-		return s.die()
+		return s.Die()
 	}
 
-	if s.length > len(s.body) {
-		s.body = append(s.body, cord)
+	if s.Length > len(s.Body) {
+		s.Body = append(s.Body, cord)
 	} else {
-		s.body = append(s.body[1:], cord)
+		s.Body = append(s.Body[1:], cord)
 	}
 	return nil
 }
 
-func (s *snake) isOnPosition(c cordinate) bool {
-	for _, b := range s.body {
-		if b.x == c.x && b.y == c.y {
+func (s *Snake) isOnPosition(c Cordinate) bool {
+	for _, b := range s.Body {
+		if b.X == c.X && b.Y == c.Y {
 			return true
 		}
 	}

@@ -8,16 +8,16 @@ import (
 
 type Food struct {
 	Emoji rune
-	x     int
-	y     int
+	X     int
+	Y     int
 	Score int
 }
 
 func NewFood(x int, y int) *Food {
 	return &Food{
 		Emoji: getFoodEmoji(),
-		x:     x,
-		y:     y,
+		X:     x,
+		Y:     y,
 		Score: 10,
 	}
 }
