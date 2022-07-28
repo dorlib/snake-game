@@ -6,4 +6,4 @@ enjoy
 
 
 
-# Influenced By ![this](https://github.com/pranshu-mathur/Snake/blob/main/snake/food.go) github repo for learning purposes
+Influenced By [this](https://github.com/pranshu-mathur/Snake/blob/main/snake/food.go) github repo for learning purposes
